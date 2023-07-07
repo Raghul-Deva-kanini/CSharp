@@ -1,0 +1,223 @@
+03/05/2023
+open cmd prompt
+1)ceate consoleCLI
+
+	1) C:\Users\Administrator>dotnet --version
+		7.0.202
+	after installed, then command 
+	2) C:\Users\Administrator>dotnet new
+	3) create an console cli
+		C:\Users\Administrator>dotnet new console --name ConsoleCliSample
+		The template "Console App" was created successfully.
+	4) shift location using cd
+		where u want!!
+	5)then,D:\>cd D:\bala\kanini\c#\ConsoleCliSample
+	6) D:\bala\kanini\c#\ConsoleCliSample>dir
+ 		Volume in drive D has no label.
+ 		Volume Serial Number is 9076-D2F4
+
+ 		Directory of D:\bala\kanini\c#\ConsoleCliSample
+
+		03-05-2023  11:34    <DIR>          .
+		03-05-2023  11:34    <DIR>          ..
+		03-05-2023  10:45               249 ConsoleCliSample.csproj
+		03-05-2023  11:34    <DIR>          obj
+		03-05-2023  10:45               105 Program.cs
+               
+		2 File(s)            354 bytes
+            3 Dir(s)  776,214,990,848 bytes free
+	7) D:\bala\kanini\c#\ConsoleCliSample>dotnet build
+		to bring bin file
+	8) D:\bala\kanini\c#\ConsoleCliSample>dir
+		now see bin file
+	9) Now,D:\bala\kanini\c#\ConsoleCliSample>dotnet run
+		Hello, World!
+		****************************************
+
+
+2) create webapi
+	1) D:\bala\kanini\c#>dotnet new webapi --name WebApiSample
+	2) D:\bala\kanini\c#>dir
+	3) D:\bala\kanini\c#\WebApiSample>dir
+	4) D:\bala\kanini\c#\WebApiSample>dotnet build
+	5) open postman
+		lft pannel=> collection , modify name sameas (filename)
+		belo three dts(...)
+		add request option
+	6) In console after dotnet run the localhost id display
+	7) copy and run in chrome
+	8) for eg.http://localhost:5162
+	9) after add http://localhost:5162/swagger
+		the select GET ,then execute,then u see Request url will display copy and paste in (postman server)in (GET) paste.click send;
+		below u c response!!!
+
+
+Now we crete in Vscode.....
+1) Asp.net core webapi
+	To open
+		localhost.. ->in properities->launch settings.json->http & https & IIS->appliicationurl->chngw localhost to ip address(i try to chng IIS in ip but can't)
+		ipiddress.. ->smilar to abv
+04/05/2023
+	web api
+	modularization with(CRUD operation)
+	models	-> core classes domain
+	controller	-> controller class BL
+
+	sync(wait) / async(await) -> new topic in below steps and their concept..
+
+	In controller folder ->add -> conroller -> in,API -> API controller empty ->nameforcontroller ->create!!.
+	after creating u can see     [ApiController] ->this is called decorator..
+	
+	What is a decorator in C#?
+		Decorator is a structural pattern that allows adding new behaviors to objects dynamically by placing them inside special wrapper objects, called 		decorators. Using decorators you can wrap objects countless number of times since both target objects and decorators follow the same interface.
+
+	[HttpGet]			-> slect/show
+	[HttpPost]			-> insert/append
+	[HttpPut("{id}")]		-> update
+	[HttpDelete("{id}")]	-> remove
+
+
+	services => only use encapsulate the code
+	controller(action) => services(bl logic,interface = class) => model(core / data part)
+	*****if controller have a meathod that will come in and consider to act services as class
+
+	//to connect sql,swagger,C#,EF framework
+		    create a file controller insidea controller folder....
+	(**install nuget packages like microsofy.sql.efcore,design,...)
+
+	EF  can perform i)Code first approach(Add migratition)=>(entityframeworkdesign) install in nuget.
+			   ii)SQL server =>(entityframeworksqlserver) install in nuget.
+
+----------------------------------------Code first approach(must use the below package)--------------------------------------------------------
+package : 	microsoft.design
+		microsoft.core
+
+    ->async is act like a disconnected architecture.........
+	async->task->action();
+
+	step 1 -> create Model folder , inside create a STUB code like sql(colums,PK,FK,....)
+			public class Student
+    			{
+				[Key][DatabaseGenerated(DatabaseGeneratedOption.None)] public int StuID { get; set; }
+        			public string StudName { get; set; } = string.Empty;
+				public string City { get; set; } = string.Empty;
+        			public int Pin { get; set; }
+    			}
+	step 2 -> create service folder, then sub folder and then, create a interface(meathod declare) and, class(method definition) to inherite.
+			this is class..,
+			public class StudentService : IStudentService
+    			{
+        			public StudentDataContxt _studentcntxt;
+        			public StudentService( StudentDataContxt studentDataContxt)
+        			{
+            			_studentcntxt = studentDataContxt;
+        			}
+        			/*private static List<Student> studentsLst = new List<Student>
+            		{
+                			new Student {
+                            	StuID = 1 ,
+                            	StudName = "ram" ,
+                            	City ="chennai",
+                            	Pin =376236
+                		},
+                 			new Student {
+                            	StuID = 2 ,
+                            	StudName = "Bala" ,
+                            	City ="chennai",
+                            	Pin =86434
+                 		},
+                  		new Student {
+                            	StuID = 3 ,
+                            	StudName = "nandha" ,
+                            	City ="coimbatore",
+                            	Pin =4787384
+                  	},
+                   		new Student {
+                            	StuID = 4 ,
+                            	StudName = "senthil" ,
+                            	City ="sivaganga",
+                            	Pin =89834
+                   	}
+            	};*/
+        			public async Task< List<Student>> GetAllStudentDetailes()
+        			{
+            			var stds =await _studentcntxt.Students.ToListAsync();
+            			return stds;
+        			}
+        			public  async Task<Student?> GetStudetailbyID(int id)
+        			{
+            			var stds = await _studentcntxt.Students.FindAsync(id);
+
+            			if (stds == null)
+            			{
+                				return null ;
+            			}
+            			return stds;
+        			}
+			this is interface,...
+				public interface IStudentService 
+    				{
+        				Task<List<Student>> GetAllStudentDetailes();
+        				Task<Student?> GetStudetailbyID(int id);
+       				/* Student GetStudIDPost();
+        				Student? UpdateStudIDPost(int id, Student su);*/
+    				}
+	step 3 ->create a folder named as data,and then create (studentdatacontext)context name,then give (connection DB,Dbcontext inherit...)
+			public class StudentDataContxt : DbContext
+    			{
+        			public DbSet<Student> Students { get; set; }
+        			public StudentDataContxt(DbContextOptions<StudentDataContxt> options) : base(options) 
+        			{ 
+
+        			}
+        			protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        			{
+            			base.OnConfiguring(optionsBuilder);
+            			optionsBuilder.UseSqlServer("data source = .\\SQLEXPRESS; initial catalog = ApiTry; integrated security=SSPI; TrustServerCertificate= True;");
+        			}
+
+    			}
+	step 4 -> create a migration,click tool->nuget->package console,
+			install EF core, cmd ->dotnet tool install --global dotnet-ef
+						 cmd -> dotnet ef --version
+	step 6 -> he create db,cmd->dir(check u must inside the project),
+					  cmd->cd WebApiSample
+					  cmd->dotnet ef migrations add CreateDB(before execute u must build ur project/save)
+					  cmd->dotnet ef update CreateDB 
+	
+
+	step 4 -> nowin interface err, to solve (It's is call us Injecting)!...
+			in Program.cs(driver code) u write  builder.Services.AddScoped<IStudentService, StudentService>();
+									builder.Services.AddDbContext<StudentDataContxt>();
+	step 5 -> that's it now it'll run...
+
+
+08/05/2023
+
+	EF  can perform i)Code first approach(Add migratition)=>(entityframeworkdesign) install in nuget.
+
+				Controller() ->services() ->Context()
+			   ii)SQL server =>(entityframeworksqlserver) install in nuget.
+
+
+----------------------------------------DB first approach(must use the below package)--------------------------------------------------------
+package : 	microsoft.tools
+		microsoft.sql
+		microsoft.configuration
+
+if use db -> use Scaffold -dbcontext cmd console
+scaffold-dbcontext "data source=.\SQLEXPRESS; Initial catalog=Apitry; integrated security=SSPI; TrustServerCertificate= True" Microsoft.EntityFrameworkCore.SQLServer
+
+controller->add
+		-> new scaffolditems
+		->api
+		->apicontrolleractions using efframework
+		->screee pop up 
+		->modelclass
+		->dbcontextclass
+		->controllername
+		->add ->run
+			u can see the framwork code happens in studentcontroller.cs!...
+
+	
+

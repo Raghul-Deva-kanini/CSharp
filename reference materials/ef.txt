@@ -1,0 +1,92 @@
+UPDATE
+using (var context = new SchoolContext())
+{
+    var std = context.Students.First<Student>(); 
+    std.FirstName = "Steve";
+    context.SaveChanges();
+}
+
+DELETE
+using (var context = new SchoolContext())
+{
+    var std = context.Students.First<Student>();
+    context.Students.Remove(std);
+    context.SaveChanges();
+}
+
+
+
+QUERYING
+var context = new SchoolContext();
+    var studentsWithSameName = context.Students
+ 					.Where(s => s.FirstName == GetName())
+     				 .ToList();
+
+public static string GetName() {
+    return Consol Read;
+}
+
+
+INCLUDE  NAVIGATION PROP
+var context = new SchoolContext();
+
+var studentWithGrade = context.Students
+                           .Where(s => s.FirstName == "Bill")
+                           .Include(s => s.Grade)
+                           .First();
+
+
+PROPERTY NAME
+var context = new SchoolContext();
+
+var studentWithGrade = context.Students
+                        .Where(s => s.FirstName == "Bill")
+                        .Include("Grade")
+                        .FirstOrDefault();
+
+
+FROM SQL
+var context = new SchoolContext();
+
+var studentWithGrade = context.Students
+                        .FromSql("Select * from Students where FirstName ='Bill'")
+                        .Include(s => s.Grade)
+                        .FirstOrDefault(); 
+
+
+MULTIPLE INCLUDES
+var context = new SchoolContext();
+
+var studentWithGrade = context.Students.Where(s => s.FirstName == "Bill")
+                        .Include(s => s.Grade)
+                        .Include(s => s.StudentCourses)
+                        .FirstOrDefault();
+
+THEN INCLUDE
+var context = new SchoolContext();
+
+var student = context.Students.Where(s => s.FirstName == "Bill")
+                        .Include(s => s.Grade)
+                            .ThenInclude(g => g.Teachers)
+                        .FirstOrDefault();
+
+PROJECTION QUERY
+var context = new SchoolContext();
+
+var stud = context.Students.Where(s => s.FirstName == "Bill")
+                        .Select(s => new
+                        {
+                            Student = s,
+                            Grade = s.Grade,
+                            GradeTeachers = s.Grade.Teachers
+                        })
+                        .FirstOrDefault();
+
+
+
+Scaffold-DbContext "data source = DESKTOP-9ARP2SI\SQLEXPRESS; initial catalog = College; integrated security=SSPI; TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+
+
+
+

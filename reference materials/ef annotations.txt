@@ -1,0 +1,97 @@
+Key - use a Key attribute to configure a single property to be the key of an entity.
+
+public class OrderDetail
+{
+    [Key]
+    public int OrderDetailID { get; set; }
+    public int OrderID { get; set; }
+    public int ProductID { get; set; }
+    public int Quantity { get; set; }
+    public Order Order { get; set; }
+}
+
+ForeignKey - use the Data ForeignKey attribute to configure which property should be used as the foreign key property for a given relationship.
+
+public class OrderDetail
+{
+    public int OrderDetailID { get; set; }
+    public int OrderID { get; set; }
+    public int ProductID { get; set; }
+    public int Quantity { get; set; }
+
+    [ForeignKey("OrderID")]
+    public Order Order { get; set; }
+}
+
+public class Order
+{
+    public int OrderID { get; set; }
+    public int CustomerID { get; set; }
+    public int EmployeeID { get; set; }
+    public DateTime OrderDate { get; set; }
+    public List<OrderDetail> OrderDetails { get; set; }
+}
+
+NotMapped - use a NotMapped attribute to exclude a type from the model or any property of the entity.
+
+[NotMapped]
+public class BlogMetadata
+{
+    public DateTime LoadedFromDatabase { get; set; }
+}
+OR
+
+public class Blog
+{
+    public int BlogId { get; set; }
+    public string Url { get; set; }
+
+    [NotMapped]
+    public DateTime LoadedFromDatabase { get; set; }
+}
+
+Required - use a Required attribute to indicate that a property is required.
+
+public class Blog
+{
+    public int BlogId { get; set; }
+    [Required]
+    public string Url { get; set; }
+}
+MaxLength MinLength - use the attribute to configure a  length for a property.
+
+public class Person
+{
+    public int PersonId { get; set; }
+
+    [MaxLength(50)]
+    public string LastName { get; set; }
+
+    [MinLength(10)]
+    public string FirstName { get; set; }
+}
+
+StringLength - use the StringLength attribute to specify additional property validations like MaxLength. The only difference is that StringLength attribute can only be applied to a string type property of Domain classes.
+
+public class Person
+{
+    public int PersonId { get; set; }
+
+    [StringLength(50)]
+    public string LastName { get; set; }
+}
+
+
+Timestamp
+You can use the Timestamp attribute the same as ConcurrencyCheck attribute, but it will also ensure that the database field that code first generates is non-nullable.
+
+public class Person
+{
+    public int PersonId { get; set; }
+    public string LastName { get; set; }
+    public string FirstName { get; set; }
+
+    [Timestamp]
+    public byte[] TStamp { get; set; }
+}
+

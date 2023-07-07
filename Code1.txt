@@ -1,0 +1,69 @@
+
+//Single line comment
+
+/*
+ * Multi line comment
+ * Author      : Raghul.D
+ * Date        : 23/03/3023
+ * Description : Simple Program1
+ */
+
+//using System;
+
+Console.Write("Welcome Boss");
+Console.WriteLine("Hello" + "Boss");
+
+/*int num1, num2, answer;
+Console.WriteLine("Enter 2 numbers");
+num1 = Convert.ToInt32(Console.ReadLine());
+num2 = Convert.ToInt32(Console.ReadLine());
+answer = num1 + num2;
+Console.WriteLine("Result : "+ answer);
+*/
+
+int number = 65;
+float flnum = number;
+Console.WriteLine(flnum);
+
+char ch = Convert.ToChar(number);
+Console.WriteLine(ch);
+
+double ans = Math.Sqrt(9);
+Console.WriteLine(ans);
+Console.WriteLine(Math.Equals(ans, Convert.ToDouble(3)));
+
+string s1 = "Raghul";
+string s2 = "Hello";
+Console.WriteLine(s1.Equals(s2));
+Console.WriteLine(s1.Concat(s2));
+Console.WriteLine(s1.ToLower());
+Console.WriteLine(s1.Substring(0, 3));
+Console.WriteLine(s1.Length);
+Console.WriteLine(s2.IndexOf('l'));
+
+String x = "Rad";
+int y = 10;
+Console.WriteLine($"{x}, Hello, {y}");
+
+
+int num1, num2;
+
+Console.WriteLine("Enter 2 numbers for comparison");
+int number1 = Convert.ToInt32(Console.ReadLine());
+int number2 = Convert.ToInt32(Console.ReadLine());
+
+if(number1==number2)
+{
+    Console.WriteLine($"{number1} and {number2} are equal");
+}
+else if (number1>number2)
+{
+    Console.WriteLine($"{number1} is greater than {number2}");
+}
+else 
+{
+    Console.WriteLine($"{number1} is lesser than {number2}");
+}
+
+
+

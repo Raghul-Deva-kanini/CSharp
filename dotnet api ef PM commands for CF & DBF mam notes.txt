@@ -1,0 +1,119 @@
+controller ==>  services 															 ACTION					BL	 	interface = class(methods)				
+
+SERVICES
+Service Interface  ==> Service class
+eg:  IStudentService ==> StudentService
+
+Controller ==> methods in Service class
+eg:  ServiceController ==> _studentService var ==> methods in Service class
+
+Register the Service Interface & Service Class in Program.cs
+builder.Services.AddScoped<IStudentService, StudentService>();
+
+
+
+ENTITY FRAMEWORK
+
+CLI ==>  dotnet ef
+
+dotnet tool install --global dotnet-ef
+
+Project
+nuget ==> entityfrmwrkcore
+
+CodeFirst ==>  entityfrmwrkcoredesign
+SQL server ==>  entityfrmwrkcore.sqlserver
+
+Datacontext 
+eg: StudentDataContext 
+
+add StudentDataContext class
+write onconfig method
+
+builder.Services.AddDbContext<StudentDataContext>();
+
+PM console => switch to your project directory
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+controller ==>  services 			==> Context  class				 ACTION				BL	 class(methods)			DB
+
+
+USING CONNECTION STRING IN appsettings.json ==> program.cs
+"ConnectionStrings": {
+    "SQLConnection": "data source = .\\SQLEXPRESS; initial catalog = StudentDB; integrated security=SSPI;TrustServerCertificate=True;"
+  }
+
+builder.Services.AddDbContext<StudentDataContext>(optionsAction:options =>options.UseSqlServer(builder.Configuration.GetConnectionString( name: "SQLConnection")));
+
+=================================================================================
+
+DBFirst ==> Microsoft.Entityfrmwrkcore.Tools
+			Microsoft.Extensions.Configuration
+SQL server ==>  Microsoft.entityfrmwrkcore.sqlserver
+	
+PM> scaffold-dbcontext "data source = .\SQLEXPRESS; initial catalog = StudentDB; integrated security=SSPI;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.Sqlserver -OutputDir Models
+
+move the connection string to appsettings.json and add code in Program.cs
+builder.Services.AddDbContext<CONTEXTNAME>(optionsAction:options =>options.UseSqlServer(builder.Configuration.GetConnectionString( name: "ConnectionNAME")));
+
+BUILD THE SOLUTION AND CHECK FOR CORRECT BUILD
+
+Add controller with scaffoldding it
+API controller with EF
+
+BUILD & EXECUTE
+ADD services & modify the code accordingly
+
+================================================================================
+
+Attributes through   FILTERS
+
+ Attributes - AllowAnonymous, FromBody, ActionFilter, Custom exception filter
+
+configurations folder separately ==> loosely coupled
+AttributesFilter class ==> FilterAttribute: Attribute, IActionFilter
+
+program.cs
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new FilterAttribute());
+});
+add some writeline in the implemented methods and check
+
+
+next step is to create a new filterwithattribute class  ==> AttributeActionFilter
+inherit Attribute class and implement IActionFilter and add the callername attribute
+
+  private readonly string _callerName;
+
+        public FilterAttribute(string callerName)
+        {
+            _callerName = callerName;
+        }  
+
+add this attribute for the controller class       [FilterAttribute("StudentController")]
+add some writeline in the implemented methods and check
+
+GLOBAL FILTER WILL EXECUTE FIRST
+
+
+
+
+REPOSITORY PATTERN
+SERVICES ==> REPOSITORY 
+DECOUPLE THE CODE BY ABSTRACTION 
+DECOUPLE  APPLICATION LAYER &  DATA LAYER 
+		CONTROLLER 	 SERVICES   DATA CONTEXT  DB
+
+ADVANTAGES
+APP LAYER   CONSUMES   DATA LAYER
+LOOSELY COUPLED
+MOCK THE DB LAYER AND CHK THE APP LAYER
+MOCK ==>  SQL/ORACLE/MYSQL
+INDEPENDENT APP & DATA
+STABILITY INCREASES
+
+
+
+

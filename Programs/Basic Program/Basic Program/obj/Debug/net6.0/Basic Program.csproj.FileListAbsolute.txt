@@ -1,0 +1,15 @@
+D:\C# training\Programs\Basic Program\Basic Program\bin\Debug\net6.0\Basic Program.exe
+D:\C# training\Programs\Basic Program\Basic Program\bin\Debug\net6.0\Basic Program.deps.json
+D:\C# training\Programs\Basic Program\Basic Program\bin\Debug\net6.0\Basic Program.runtimeconfig.json
+D:\C# training\Programs\Basic Program\Basic Program\bin\Debug\net6.0\Basic Program.dll
+D:\C# training\Programs\Basic Program\Basic Program\bin\Debug\net6.0\Basic Program.pdb
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.csproj.AssemblyReference.cache
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.GeneratedMSBuildEditorConfig.editorconfig
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.AssemblyInfoInputs.cache
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.AssemblyInfo.cs
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.csproj.CoreCompileInputs.cache
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.dll
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\refint\Basic Program.dll
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.pdb
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\Basic Program.genruntimeconfig.cache
+D:\C# training\Programs\Basic Program\Basic Program\obj\Debug\net6.0\ref\Basic Program.dll
